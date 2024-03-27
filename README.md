@@ -45,5 +45,5 @@ nodemon app.js
 
 ```bash
 cd project/client
-nodemon index.js
+npm start
 ```
