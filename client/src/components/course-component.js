@@ -10,14 +10,13 @@ const CourseComponent = (props) => {
   };
   let [courseData, setCourseData] = useState(null);
   useEffect(() => {
-    console.log("Using effect.");
+    console.log("Using effect");
     let _id;
     if (currentUser) {
       _id = currentUser.user._id;
     } else {
       _id = "";
     }
-
     if (currentUser.user.role == "instructor") {
       CourseService.get(_id)
         .then((data) => {
@@ -28,7 +27,7 @@ const CourseComponent = (props) => {
           console.log(err);
         });
     } else if (currentUser.user.role == "student") {
-      CourseService.getEnrolledCourses(_id)
+      CourseService.getEnrolledCourse(_id)
         .then((data) => {
           console.log(data);
           setCourseData(data.data);
@@ -38,7 +37,6 @@ const CourseComponent = (props) => {
         });
     }
   }, []);
-
   return (
     <div style={{ padding: "3rem" }}>
       {!currentUser && (
@@ -54,25 +52,24 @@ const CourseComponent = (props) => {
       )}
       {currentUser && currentUser.user.role == "instructor" && (
         <div>
-          <h1>Welcome to instructor's Course page.</h1>
+          <h1>Welcome to instructor's Course Page.</h1>
         </div>
       )}
       {currentUser && currentUser.user.role == "student" && (
         <div>
-          <h1>Welcome to student's Course page.</h1>
+          <h1>Welcome to student's Course Page.</h1>
         </div>
       )}
       {currentUser && courseData && courseData.length != 0 && (
         <div>
-          <p>Here's the data we got back from server.</p>
+          <p>Here's the data we got back from server</p>
           {courseData.map((course) => (
             <div className="card" style={{ width: "18rem" }}>
               <div className="card-body">
                 <h5 className="card-title">{course.title}</h5>
                 <p className="card-text">{course.description}</p>
-                <p>Student Count: {course.students.length}</p>
+                <p>student :{course.student.length}</p>
                 <button className="btn btn-primary">{course.price}</button>
-                <br />
               </div>
             </div>
           ))}
@@ -81,5 +78,4 @@ const CourseComponent = (props) => {
     </div>
   );
 };
-
 export default CourseComponent;
